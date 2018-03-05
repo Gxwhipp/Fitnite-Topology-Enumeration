@@ -37,7 +37,7 @@ There are three ideas, that when combined, served to make my new program much mo
     rows in the N+1 x N+1 matrices satisfying property * created from the previous N x N matrix.
     When used with idea 1 above, provides a way to reduce the number of last rows to be tested.
    
-3.  The transpose of an N x N matrice satisfying property * also satisfies property *.
+3.  The transpose of an N x N matrice satisfying property * also satisfies property *. 
     This of course reduces by half the number of matrices to be tested for property *,
     but also makes it more efficient to compute the transpose of an N+1 x N+1 matrice
     when the transpose of the N x N submatrix is already known.
