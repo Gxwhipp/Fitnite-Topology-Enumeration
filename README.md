@@ -24,7 +24,7 @@ computed f(5)=6942. To do so required generating and testing 1048576 matrices wh
 two hours run time.  To compute f(6) would require generating and testing for property (*) 
 1024 times as many matrices.
 
-There are three ideas, that when combined, serve to make the program much more efficient.
+There are three ideas, that when combined, served to make my new program much more efficient.
 
 1.  Make use of N-1 x N-1 submatrices.  The N-1 x N-1 matrix obtained by deleting row N
     and column N from an N x N matrix satisfying property * also satisfies property *.
@@ -32,15 +32,16 @@ There are three ideas, that when combined, serve to make the program much more e
     generate new N+1 x N+1 matrices satisfying property *  just by adding a new Nth row
     and an new Nth column and testing for poperty *.
 
-2.  The transpose of an N x N matrice satisfying property * also satisfies property *.
-
-3.  The unique rows obtained by the pairwise inclusive OR of all possible rows of an
+2.  The unique rows obtained by the pairwise inclusive OR of all possible rows of an
     N x N matrix satisfying property (*) will constitute the set of valid N+1 (last) 
     rows in the N+1 x N+1 matrices satisfying property * created from the previous N x N matrix.
+    When used with idea 1 above, provides a way to reduce the number of last rows to be tested.
+   
+3.  The transpose of an N x N matrice satisfying property * also satisfies property *.
+    This of course reduces by half the number of matrices to be tested for property *,
+    but also makes it more efficient to compute the transpose of an N+1 x N+1 matrice
+    when the transpose of the N x N submatrix is already known.
      
-
-
-combination or rows
 
 
 
