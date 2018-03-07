@@ -57,9 +57,62 @@ Krishnamurthy also defined a condensed representation of a N x N matrice satisfy
 N x N matrice and then concatenating the rows into a single N*(N-1) bit number.
 
 For example, a single topology from a set with 7 members is represented by a 42 bit number.
-All 9535241 topologies on a set with seven members is stored in a file of 123105544 bytes.
+All 9535241 topologies on a set with seven members are stored in a file of 123105544 bytes.
 
-5.) 
+5.) Program Execution Modes
+
+There are two modes of program execution and a variation of the second mode provides a way to
+implement distributed processing on an arbitrarily large network.
+
+5.1 Basic Execution Mode
+
+fte 8
+
+This example computes the number of topologies on a set with 8 elements.  Execution proceeds by
+starting with a set with one element and then creating a new 2x2 matrix that is tested for 
+Property (*).  If the new matrice satisfyies property *
+
+Execution proceeds as follows:
+
+5.1.1  Contstuct a 1x1 matrix representing the single topoology on a set with one member.
+This is just a single integer containing the number 1.
+
+5.1.2  Add a second row and second column to the 1x1 matrix and test for property (*)
+if the resulting 2x2 matrix satisfysiesproperty *, add it to a ??????? tree
+
+...............
+
+The Basic Execution Mode only utilitize a single thread regardless of how many cores
+are available.
+
+
+5.2 Submatrix Mode
+
+fte 8 nbasic5.txt
+
+This example also computes the number of topologies on a set with 8 elements, but does so by
+utilizing the 6942 5 basic numbers computed earlier.
+
+Execution proceeds as follows:
+
+5.2.1 Read a 5 basic number frome the nbasic5.txt file and convert it to a 5x5 matrix.
+Program execution is then the same as in 5.1 except that instead of starting with a 1x1
+matrix we begin with a 5x5 matrix
+
+5.2.2 Continue until all 5 basic numbers have been processed.
+
+In this mode ptThreads functionaltiy is used to process each 5 basic number in a seperate
+thread and the threads are run concurrently on as many cores as are available.
+
+5.3  Distributed Processing Mode
+
+cat seed7.txt | process.sh 10
+
+
+
+
+
+
 
 
      
