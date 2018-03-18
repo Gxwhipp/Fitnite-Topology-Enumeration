@@ -64,12 +64,12 @@ All 9535241 topologies on a set with seven members are stored in a file of 12310
 The source code is written in C and was developed on an Intel Core i5 6600K with 4 cores
 running Ubuntu Linux 16.04.  
 
-5.) Program Execution Modes
+6.) Program Execution Modes
 
 There are two modes of program execution and a variation of the second mode provides a way to
 implement distributed processing on an arbitrarily large network.
 
-5.1 Basic Execution Mode
+6.1 Basic Execution Mode
 
     fte 8
 
@@ -105,7 +105,7 @@ To compute f(10) in Basic Execution Mode:
         f(10):   8977053873043   141.91
         Elapsed Time = 125005 sec (34:43:25)
 
-5.2 Partitioned Mode
+6.2 Partitioned Mode
 
     fte 8 nbasic5.txt
 
@@ -127,7 +127,7 @@ To compute f(10) in Submatrix mode:
     f(10):   8977053873043   141.907
     Elapsed Time = 32531 sec (9:02:11)
 
-5.3  Distributed Patitioned Mode
+6.3  Distributed Patitioned Mode
 
     cat seed7.txt | process.sh 10
     
