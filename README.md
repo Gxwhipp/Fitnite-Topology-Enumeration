@@ -59,6 +59,11 @@ N x N matrice and then concatenating the rows into a single N*(N-1) bit number.
 For example, a single topology from a set with 7 members is represented by a 42 bit number.
 All 9535241 topologies on a set with seven members are stored in a file of 123105544 bytes.
 
+5.)  Hardware and Software Envinronment
+
+The source code is written in C and was developed on an Intel Core i5 6600K with 4 cores
+running Ubuntu Linux 16.04.  
+
 5.) Program Execution Modes
 
 There are two modes of program execution and a variation of the second mode provides a way to
@@ -88,7 +93,9 @@ dimension.
         f( 8):       642779354    67.411
         Elapsed Time = 5 sec (0:00:05)
         
-These results and all following results were obtained on an Intel Core i5 6600K with 4 cores.
+These results and all following results were obtained from a C language program running on an Intel 
+Core i5 6600K with 4 cores running.
+
 
 The Basic Execution Mode only utilitize a single thread and one core regardless of how many cores
 are available.
