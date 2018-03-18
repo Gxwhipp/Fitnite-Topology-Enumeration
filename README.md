@@ -78,6 +78,7 @@ and create new 3x3 matric by adding a third row and third column and testing for
 Continue until all 3x3 matrices have been created and tested for property *.  Repeat for 4x4
 matrices, then 5x5, then 6x6m then 7x7 then 8x8.  Finish by printing the counters for each matrix
 dimension.
+
         f( 2):               4     4.000
         f( 3):              29     7.250
         f( 4):             355    12.241
@@ -111,7 +112,7 @@ Program execution is then the same as in 5.1 except that instead of starting wit
 matrix we begin with a 5x5 matrix. Continue until all 6942 5 basic numbers have been
 processed.
 
-In this mode ptThreads functionaltiy is used to process each 5 basic number in a seperate
+In this mode ptThreads functionaltiy is used to process each 5-basic number in a seperate
 thread and the threads are run concurrently on as many cores as are available.
 
 To compute f(10) in Submatrix mode:
@@ -122,6 +123,19 @@ To compute f(10) in Submatrix mode:
 5.3  Distributed Patitioned Mode
 
     cat seed7.txt | process.sh 10
+    
+    This example computes the number of topologies on 10 elements using the 9535241 7-basic
+    numbers computed in an earlier run.  In this case the 9535241 7-basic numbers were partitioned
+    in 2000 seperate files, each of which contains about 4768 7-basic numbers.  Each of these 2000
+    seperate files are distrubuted out to the 7 computers in my local area network where they are processed
+    in Distributed mode as described above.  As each one of the 2000 seperate files is processed, the 
+    partial results are written back to the computer responsible for distributing the work.  After all 
+    2000 files have been processed the partial results are recombined to give the the final total.
+    
+    In this case, the head computer responsible for distributing the work load is the Intel Core I5
+    mentioned above, and the remaining six are various 6-8 year old boxes that I could find plus one
+    Raspberry Pi.
+    
 
 
 
