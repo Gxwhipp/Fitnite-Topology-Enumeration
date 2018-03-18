@@ -66,47 +66,62 @@ implement distributed processing on an arbitrarily large network.
 
 5.1 Basic Execution Mode
 
-fte 8
+    fte 8
 
 This example computes the number of topologies on a set with 8 elements.  Execution proceeds by
-starting with a set with one element and then creating a new 2x2 matrix that is tested for 
-Property (*).  If the new matrice satisfyies property *
+starting with a set with one element and then creating a new 2x2 matrix by adding a second row 
+and second column that is tested for Property (*).  If the new matrice satisfyies property * push 
+the matrix (or rather a pointer to the matrix) on to the stack.  Each time a matrix is pushed onto 
+the stack, increment a counter and continue until all possible 2x2 matrices have been tested and 
+added to the stack if satisfying property *.  Continue by poping a 2x2 matrix off the stack
+and create new 3x3 matric by adding a third row and third column and testing for property *.
+Continue until all 3x3 matrices have been created and tested for property *.  Repeat for 4x4
+matrices, then 5x5, then 6x6m then 7x7 then 8x8.  Finish by printing the counters for each matrix
+dimension.
+        f( 2):               4     4.000
+        f( 3):              29     7.250
+        f( 4):             355    12.241
+        f( 5):            6942    19.555
+        f( 6):          209527    30.183
+        f( 7):         9535241    45.508
+        f( 8):       642779354    67.411
+        Elapsed Time = 5 sec (0:00:05)
+        
+These results and all following results were obtained on an Intel Core i5 6600K with 4 cores.
 
-Execution proceeds as follows:
-
-5.1.1  Contstuct a 1x1 matrix representing the single topoology on a set with one member.
-This is just a single integer containing the number 1.
-
-5.1.2  Add a second row and second column to the 1x1 matrix and test for property (*)
-if the resulting 2x2 matrix satisfysiesproperty *, add it to a ??????? tree
-
-...............
-
-The Basic Execution Mode only utilitize a single thread regardless of how many cores
+The Basic Execution Mode only utilitize a single thread and one core regardless of how many cores
 are available.
 
+To compute f(10) in Basic Execution Mode:
+        fte 10
+        f(10):   8977053873043   141.91
+        Elapsed Time = 125005 sec (34:43:25)
 
-5.2 Submatrix Mode
+5.2 Partitioned Mode
 
-fte 8 nbasic5.txt
+    fte 8 nbasic5.txt
 
 This example also computes the number of topologies on a set with 8 elements, but does so by
 utilizing the 6942 5 basic numbers computed earlier.
 
 Execution proceeds as follows:
 
-5.2.1 Read a 5 basic number frome the nbasic5.txt file and convert it to a 5x5 matrix.
+Read a 5 basic number frome the nbasic5.txt file and convert it to a 5x5 matrix.
 Program execution is then the same as in 5.1 except that instead of starting with a 1x1
-matrix we begin with a 5x5 matrix
-
-5.2.2 Continue until all 5 basic numbers have been processed.
+matrix we begin with a 5x5 matrix. Continue until all 6942 5 basic numbers have been
+processed.
 
 In this mode ptThreads functionaltiy is used to process each 5 basic number in a seperate
 thread and the threads are run concurrently on as many cores as are available.
 
-5.3  Distributed Processing Mode
+To compute f(10) in Submatrix mode:
+    fte 10 nbasic5.txt
+    f(10):   8977053873043   141.907
+    Elapsed Time = 32531 sec (9:02:11)
 
-cat seed7.txt | process.sh 10
+5.3  Distributed Patitioned Mode
+
+    cat seed7.txt | process.sh 10
 
 
 
