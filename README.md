@@ -136,13 +136,13 @@ spread over a much larger computation effort.
 6.3  Distributed Patitioned Mode
 
 In Distributed Partitioned Mode, the results from a previous computation are also saved and used
-as in the Paritioned Mode, except that the nbasic numbers are patitioned into a number of subfiles
+as in the Paritioned Mode, except that the nbasic numbers are split into a number of subfiles
 and each subfile is distributed out to be processed on a networked computer.
 
     cat seed7.txt | process.sh 10
     
 This example computes the number of topologies on 10 elements using the 9535241 7-basic
-numbers computed in an earlier run.  In this case the 9535241 7-basic numbers were partitioned
+numbers computed in an earlier run.  In this case the 9535241 7-basic numbers were split
 in 2000 seperate files (file names of which are in seed7.txt), each of which contains about 4768 
 7-basic numbers.  Each of these 2000 seperate files are distrubuted out to the 7 computers in my 
 local area network where they are processed in Distributed mode as described above.  As each one 
