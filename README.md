@@ -101,9 +101,9 @@ The Basic Execution Mode only utilitize a single thread and one core regardless 
 are available.
 
 To compute f(10) in Basic Execution Mode:
-        fte 10
-        f(10):   8977053873043   141.91
-        Elapsed Time = 125005 sec (34:43:25)
+    fte 10
+    f(10):   8977053873043   141.91
+    Elapsed Time = 125005 sec (34:43:25)
 
 6.2 Partitioned Mode
 
@@ -131,17 +131,17 @@ To compute f(10) in Submatrix mode:
 
     cat seed7.txt | process.sh 10
     
-    This example computes the number of topologies on 10 elements using the 9535241 7-basic
-    numbers computed in an earlier run.  In this case the 9535241 7-basic numbers were partitioned
-    in 2000 seperate files, each of which contains about 4768 7-basic numbers.  Each of these 2000
-    seperate files are distrubuted out to the 7 computers in my local area network where they are processed
-    in Distributed mode as described above.  As each one of the 2000 seperate files is processed, the 
-    partial results are written back to the computer responsible for distributing the work.  After all 
-    2000 files have been processed the partial results are recombined to give the the final total.
+This example computes the number of topologies on 10 elements using the 9535241 7-basic
+numbers computed in an earlier run.  In this case the 9535241 7-basic numbers were partitioned
+in 2000 seperate files, each of which contains about 4768 7-basic numbers.  Each of these 2000
+seperate files are distrubuted out to the 7 computers in my local area network where they are processed
+in Distributed mode as described above.  As each one of the 2000 seperate files is processed, the 
+partial results are written back to the computer responsible for distributing the work.  After all 
+2000 files have been processed the partial results are recombined to give the the final total.
     
-    In this case, the head computer responsible for distributing the work load is the Intel Core I5
-    mentioned above, and the remaining six are various 6-8 year old boxes that I could find plus one
-    Raspberry Pi.
+In this case, the head computer responsible for distributing the work load is the Intel Core I5
+mentioned above, and the remaining six are various 6-8 year old boxes that I could find plus one
+Raspberry Pi.
     
 
 
