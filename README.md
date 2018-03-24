@@ -11,7 +11,7 @@ agreeably easy to understand and the algorithm he proved readily implementable i
 limited FORTRAN skills.  I wrote the paper and the program, end of story -- for 45 years.  
 I am now retired and looking for something to occupy my time.  I bought the components 
 and assembled a VR capable PC for my grandson to play with.  Now the  grandson is off 
-to California looking for work in the gaming industry and I have a PC sitting in the basement...
+to California looking for work in the gaming industry and I have a PC sitting in the basement ...
 
 Krishnamurthy showed that for each topology on a finite set with N members, there is an
 NxN matrix (a(i,j)) of zeros and ones with a(i,i)=1 for all i and with the following 
