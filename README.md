@@ -9,10 +9,9 @@ In 1972 I was taking an undergraduate Topology course and looking around for a
 topic to write a paper on, and came accross V. Krishnamurthy's 1966 paper.  It was
 agreeably easy to understand and the algorithm he proved readily implementable in my
 limited FORTRAN skills.  I wrote the paper and the program, end of story -- for 45 years.  
-I am now a rather ancient retired software developer looking for something to occupy my time.  
-I bought the components and assembled a VR capable PC for my grandson to play with.  Now the 
-grandson is off to California looking for work in the gaming industry and I have a PC 
-sitting in the basement...
+I am now retired and looking for something to occupy my time.  I bought the components 
+and assembled a VR capable PC for my grandson to play with.  Now the  grandson is off 
+to California looking for work in the gaming industry and I have a PC sitting in the basement...
 
 Krishnamurthy showed that for each topology on a finite set with N members, there is an
 NxN matrix (a(i,j)) of zeros and ones with a(i,i)=1 for all i and with the following 
@@ -94,8 +93,7 @@ dimension.
         Elapsed Time = 5 sec (0:00:05)
         
 These results and all following results were obtained from a C language program running on an Intel 
-Core i5 6600K with 4 cores running.
-
+Core i5 6600K with 4 cores running Ubuntu Linux.
 
 The Basic Execution Mode only utilitize a single thread and one core regardless of how many cores
 are available.
@@ -108,6 +106,9 @@ To compute f(10) in Basic Execution Mode:
 
 6.2 Partitioned Mode
 
+In paritioned mode, the results from a previous basic execution mode compuation are saved and used
+in a manner that allows all of the cores available to be used concurrently.
+    
     fte 8 nbasic5.txt
 
 This example also computes the number of topologies on a set with 8 elements, but does so by
@@ -120,29 +121,46 @@ Program execution is then the same as in 5.1 except that instead of starting wit
 matrix we begin with a 5x5 matrix. Continue until all 6942 5 basic numbers have been
 processed.
 
-In this mode ptThreads functionaltiy is used to process each 5-basic number in a seperate
+In this mode pThreads functionaltiy is used to process each 5-basic number in a seperate
 thread and the threads are run concurrently on as many cores as are available.
 
-To compute f(10) in Submatrix mode:
+Computing f(8) in partitioned mode requires about 2 seconds as opposed to 5 seconds in basic mode.
+The difference is not more pronounced because of the overhead in converting the 5 basic numbers to
+5x5 matrices. Computing f(10) using the nbasic5.txt file is more effective because the overhead is
+spread over a much larger computation effort.
+
     fte 10 nbasic5.txt
     f(10):   8977053873043   141.907
     Elapsed Time = 32531 sec (9:02:11)
 
 6.3  Distributed Patitioned Mode
 
+In Distributed Partitioned Mode, the results from a previous computation are also saved and used
+as in the Paritioned Mode, except that the nbasic numbers are patitioned into a number of subfiles
+and each subfile is distributed out to be processed on a networked computer.
+
     cat seed7.txt | process.sh 10
     
 This example computes the number of topologies on 10 elements using the 9535241 7-basic
 numbers computed in an earlier run.  In this case the 9535241 7-basic numbers were partitioned
-in 2000 seperate files, each of which contains about 4768 7-basic numbers.  Each of these 2000
-seperate files are distrubuted out to the 7 computers in my local area network where they are processed
-in Distributed mode as described above.  As each one of the 2000 seperate files is processed, the 
-partial results are written back to the computer responsible for distributing the work.  After all 
-2000 files have been processed the partial results are recombined to give the the final total.
+in 2000 seperate files (file names of which are in seed7.txt), each of which contains about 4768 
+7-basic numbers.  Each of these 2000 seperate files are distrubuted out to the 7 computers in my 
+local area network where they are processed in Distributed mode as described above.  As each one 
+of the 2000 seperate files is processed, the partial results are written back to the computer 
+responsible for distributing the work.  After all 2000 files have been processed the partial results 
+are recombined to give the the final total.
     
 In this case, the head computer responsible for distributing the work load is the Intel Core I5
 mentioned above, and the remaining six are various 6-8 year old boxes that I could find plus one
 Raspberry Pi.
+
+The seven nodes in my local area network are about as many as my wife will allow in the basement.
+Seven is also about as many as I care to try to keep configured and up to date etc.
+
+It would be better to have nodes that are similar in capability but with more cores.  The AMD 16
+core Thread Rippers are enticing if I can find the time and money.  I did try to program my algorithm
+to use the Nvidia 1070 graphics card that the VR games required, but without much success.  I did get
+it to run but without significant run time improvement.  No doubt because I didn't know what I was doing.
     
 
 
