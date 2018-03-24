@@ -101,6 +101,7 @@ The Basic Execution Mode only utilitize a single thread and one core regardless 
 are available.
 
 To compute f(10) in Basic Execution Mode:
+
     fte 10
     f(10):   8977053873043   141.91
     Elapsed Time = 125005 sec (34:43:25)
