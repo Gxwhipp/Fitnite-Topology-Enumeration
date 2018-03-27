@@ -1,12 +1,12 @@
 # Fitnite-Topology-Enumeration
-Enumerates The Number of Topologies on Set of N Members
+Enumerates the Number of Topologies on a Set of N Members
 Based on V. Krishnamurthy's paper "On the Number of Topologies on a Finite Set"
 The American Mathematical Monthly, Vol 73 No2 (Feb, 1966), pp. 154-157
 
 1.) Introduction
 
 In 1972 I was taking an undergraduate Topology course and looking around for a
-topic to write a paper on, and came accross V. Krishnamurthy's 1966 paper.  It was
+topic to write a paper on, and came across V. Krishnamurthy's 1966 paper.  It was
 agreeably easy to understand and the algorithm he proved readily implementable in my
 limited FORTRAN skills.  I wrote the paper and the program, end of story -- for 45 years.  
 I am now retired and looking for something to occupy my time.  I bought the components 
@@ -22,43 +22,43 @@ So to count the number of topologies on a finite set N, one need only to generat
 possible NxN matrices of zeros and ones with ones down the diagonal, and check for
 property (*).  Since there are 2^(n^2-n) different such NxN matrices we have that as an
 upper bound for the number of topologies that may be defined on a set with n members.
-he FORTRAN program I implemented to do this ran on the University IBM 360/50 and 
+the FORTRAN program I implemented to do this ran on the University IBM 360/50 and 
 computed f(5)=6942. To do so required generating and testing 1048576 matrices which took about 
 two hours run time.  
 
 2.) Improvements to Krishnamurthy's Alogorithm
 
-There are three ideas, that when combined, served to make my new program much more efficient.
+There are three ideas that, when combined, served to make my new program much more efficient.
 
 2.1 Make use of N-1 x N-1 submatrices.  The N-1 x N-1 matrix obtained by deleting row N
     and column N from an N x N matrix satisfying property * also satisfies property *.
-    This means that if you have an N x N matrice satisfying property star, you can
+    This means that if you have an N x N matrice satisfying property (*), you can
     generate new N+1 x N+1 matrices satisfying property *  just by adding a new Nth row
-    and an new Nth column and testing for poperty *.  We now have that 
+    and a new Nth column and testing for property (*).  We now have that 
     f(N) <= f(N-1)*2^(2N-2) as an upper bound since there are 2^(2N-2) ways to add a new
     row and new column to an N-1 X N-1 matrix.
     
-2.2 The transpose of an N x N matrice satisfying property * also satisfies property *. 
-    This of course reduces by half the number of matrices to be tested for property *,
-    but also makes it more efficient to compute the transpose of an N+1 x N+1 matrice
+2.2 The transpose of an N x N matrix satisfying property (*) also satisfies property (*). 
+    This of course reduces by half the number of matrices to be tested for property (*),
+    but also makes it more efficient to compute the transpose of an N+1 x N+1 matrix
     when the transpose of the N x N submatrix is already known.  This also give a new
     upper bound f(N) <= f(N-1)*2^N
  
 2.3 The unique rows obtained by the inclusive OR of all possible combinations of rows in an
     N x N matrix satisfying property (*) will constitute the set of valid N+1 (last) 
-    rows in the N+1 x N+1 matrices satisfying property * created from the previous N x N matrix.
+    rows in the N+1 x N+1 matrices satisfying property (*) created from the previous N x N matrix.
     When used with idea 2.1 and 2.2 above, provides a way to reduce the number of last rows 
     to be tested.
   
-3.) Representation of N x N matricres satisfying property (*)
+3.) Representation of N x N matrices satisfying property (*)
 
 A natural way to represent the N x N matrices is as a list of integers where the first
 integer holds row 0 and the last holds row N-1.  The columns of the matrices are the bits
 of the integers where the high order bit is column N-1 and the low order bit is column 0.
 
-Krishnamurthy also defined a condensed representation of a N x N matrice satisfying property
-(*) called an N Basic Number obtained by deleteing the diagonal of ones from the rows of the
-N x N matrice and then concatenating the rows into a single N*(N-1) bit number.
+Krishnamurthy also defined an condensed representation of a N x N matrix satisfying property (*) 
+called an N Basic Number which is obtained by deleteing the diagonal of ones from the rows of the
+N x N matrix and then concatenating the rows into a single N*(N-1) bit number.
 
 For example, a single topology from a set with 7 members is represented by a 42 bit number.
 All 9535241 topologies on a set with seven members are stored in a file of 123105544 bytes.
@@ -79,11 +79,11 @@ implement distributed processing on an arbitrarily large network.
 
 This example computes the number of topologies on a set with 8 elements.  Execution proceeds by
 starting with a set with one element and then creating a new 2x2 matrix by adding a second row 
-and second column that is tested for Property (*).  If the new matrice satisfyies property * push 
+and second column that is tested for property (*).  If the new matrix satisfies property (*) push 
 the matrix (or rather a pointer to the matrix) on to the stack.  Each time a matrix is pushed onto 
 the stack, increment a counter and continue until all possible 2x2 matrices have been tested and 
-added to the stack if satisfying property *.  Continue by poping a 2x2 matrix off the stack
-and create new 3x3 matric by adding a third row and third column and testing for property *.
+added to the stack if satisfying property (*).  Continue by poping a 2x2 matrix off the stack
+and create new 3x3 matrix by adding a third row and third column and testing for property *.
 Continue until all 3x3 matrices have been created and tested for property *.  Repeat for 4x4
 matrices, then 5x5, then 6x6m then 7x7 then 8x8.  Finish by printing the counters for each matrix
 dimension.
@@ -100,7 +100,7 @@ dimension.
 These results and all following results were obtained from a C language program running on an Intel 
 Core i5 6600K with 4 cores running Ubuntu Linux.
 
-The Basic Execution Mode only utilitize a single thread and one core regardless of how many cores
+The Basic Execution Mode only utilitizes a single thread and one core regardless of how many cores
 are available.
 
 To compute f(10) in Basic Execution Mode:
@@ -111,25 +111,25 @@ To compute f(10) in Basic Execution Mode:
 
 5.2 Partitioned Mode
 
-In paritioned mode, the results from a previous basic execution mode compuation are saved and used
+In Paritioned Mode, the results from a previous basic execution mode compuation are saved and used
 in a manner that allows all of the cores available to be used concurrently.
     
     fte 8 nbasic5.txt
 
 This example also computes the number of topologies on a set with 8 elements, but does so by
-utilizing the 6942 5 basic numbers computed earlier.
+utilizing the 6942 5-basic numbers computed earlier.
 
 Execution proceeds as follows:
 
-Read a 5 basic number frome the nbasic5.txt file and convert it to a 5x5 matrix.
+Read a 5-basic number from the nbasic5.txt file and convert it to a 5x5 matrix.
 Program execution is then the same as in 5.1 except that instead of starting with a 1x1
-matrix we begin with a 5x5 matrix. Continue until all 6942 5 basic numbers have been
+matrix we begin with a 5x5 matrix. Continue until all 6942 5-basic numbers have been
 processed.
 
 In this mode pThreads functionaltiy is used to process each 5-basic number in a seperate
 thread and the threads are run concurrently on as many cores as are available.
 
-Computing f(8) in partitioned mode requires about 2 seconds as opposed to 5 seconds in basic mode.
+Computing f(8) in Partitioned Mode requires about 2 seconds as opposed to 5 seconds in basic mode.
 The difference is not more pronounced because of the overhead in converting the 5 basic numbers to
 5x5 matrices. Computing f(10) using the nbasic5.txt file is more effective because the overhead is
 spread over a much larger computation effort.
@@ -149,21 +149,21 @@ and each subfile is distributed out to be processed on a networked computer.
 This example computes the number of topologies on 10 elements using the 9535241 7-basic
 numbers computed in an earlier run.  In this case the 9535241 7-basic numbers were split
 in 2000 seperate files (file names of which are in seed7.txt), each of which contains about 4768 
-7-basic numbers.  Each of these 2000 seperate files are distrubuted out to the 7 computers in my 
-local area network where they are processed in Distributed mode as described above.  As each one 
-of the 2000 seperate files is processed, the partial results are written back to the computer 
+7-basic numbers.  Each of these 2000 separate files are distrubuted out to the 7 computers in my 
+local area network where they are processed in Paritiioned Mode as described above.  As each one 
+of the 2000 separate files is processed, the partial results are written back to the computer 
 responsible for distributing the work.  After all 2000 files have been processed the partial results 
-are recombined to give the the final total.
+are recombined using a Perl script to give the the final total.
     
 In this case, the head computer responsible for distributing the work load is the Intel Core I5
 mentioned above, and the remaining six are various 6-8 year old boxes that I could find plus one
 Raspberry Pi.  With this setup it required about 3 hours to compute f(10) as opposed to 34 hours
-for basic mode and 9 hours for distributed partitioned mode.
+for Basic Mode and 9 hours for Partitioned Mode.
 
 The seven nodes in my local area network are about as many as my wife will allow in the basement.
 Seven is also about as many as I care to try to keep configured and up to date etc.
 
-It would be better to have nodes that are similar in capability but with more cores.  The AMD 16
+It would be better to have nodes that are similar in capability and with more cores.  The AMD 16
 core Thread Rippers are enticing if I can find the time and money.  I did try to program my algorithm
 to use the Nvidia 1070 graphics card that the VR games required, but without much success.  I did get
 it to run but without significant run time improvement.  No doubt because I didn't know what I was doing.
