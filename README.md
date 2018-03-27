@@ -15,12 +15,12 @@ to California looking for work in the gaming industry and I have a PC sitting in
 
 Krishnamurthy showed that for each topology on a finite set with N members, there is an
 NxN matrix (a(i,j)) of zeros and ones with a(i,i)=1 for all i and with the following 
-property: (*) For every ordered pair (R(i),R(j)) (i,j=1,2,...,n) of rows of a(i,j)
+property: (\*) For every ordered pair (R(i),R(j)) (i,j=1,2,...,n) of rows of a(i,j)
 and for every index k, a(j,i)=1=a(i,k)=1  ==> a(j,k)=1.  
 
 So to count the number of topologies on a finite set N, one need only to generate all
 possible NxN matrices of zeros and ones with ones down the diagonal, and check for
-(*).  Since there are 2^(n^2-n) different such NxN matrices we have that as an
+(\*).  Since there are 2^(n^2-n) different such NxN matrices we have that as an
 upper bound for the number of topologies that may be defined on a set with n members.
 the FORTRAN program I implemented to do this ran on the University IBM 360/50 and 
 computed f(5)=6942. To do so required generating and testing 1048576 matrices which took about 
@@ -32,31 +32,31 @@ There are three ideas that, when combined, served to make my new program much mo
 
 2.1 Make use of N-1 x N-1 submatrices.  The N-1 x N-1 matrix obtained by deleting row N
     and column N from an N x N matrix satisfying (\*) also satisfies (\*).
-    This means that if you have an N x N matrice satisfying (*), you can
-    generate new N+1 x N+1 matrices satisfying (*) just by adding a new Nth row
-    and a new Nth column and testing for (*).  We now have that 
+    This means that if you have an N x N matrice satisfying (\*), you can
+    generate new N+1 x N+1 matrices satisfying (\*) just by adding a new Nth row
+    and a new Nth column and testing for (\*).  We now have that 
     f(N) <= f(N-1)*2^(2N-2) as an upper bound since there are 2^(2N-2) ways to add a new
     row and new column to an N-1 X N-1 matrix with a diagonal of 1's.
     
-2.2 The transpose of an N x N matrix satisfying (*) also satisfies (*). 
-    This of course reduces by half the number of matrices to be tested for (*),
+2.2 The transpose of an N x N matrix satisfying (\*) also satisfies (\*). 
+    This of course reduces by half the number of matrices to be tested for (\*),
     but also makes it more efficient to compute the transpose of an N+1 x N+1 matrix
     when the transpose of the N x N submatrix is already known.  This also give a new
     upper bound f(N) <= f(N-1)*2^N.
  
 2.3 The unique rows obtained by the inclusive OR of all possible combinations of rows in an
-    N x N matrix satisfying (*) will constitute the set of valid N+1 (last) 
-    rows in the N+1 x N+1 matrices satisfying (*) created from the previous N x N matrix.
+    N x N matrix satisfying (\*) will constitute the set of valid N+1 (last) 
+    rows in the N+1 x N+1 matrices satisfying (\*) created from the previous N x N matrix.
     When used with idea 2.1 and 2.2 above, provides a way to reduce the number of last rows 
     to be tested.
   
-3.) Representation of N x N matrices satisfying (*)
+3.) Representation of N x N matrices satisfying (\*)
 
 A natural way to represent the N x N matrices is as a list of integers where the first
 integer holds row 0 and the last holds row N-1.  The columns of the matrices are the bits
 of the integers where the high order bit is column N-1 and the low order bit is column 0.
 
-Krishnamurthy also defined an condensed representation of a N x N matrix satisfying (*) 
+Krishnamurthy also defined an condensed representation of a N x N matrix satisfying (\*) 
 called an N Basic Number which is obtained by deleteing the diagonal of ones from the rows of the
 N x N matrix and then concatenating the rows into a single N*(N-1) bit number.
 
@@ -79,12 +79,12 @@ implement distributed processing on an arbitrarily large network.
 
 This example computes the number of topologies on a set with 8 elements.  Execution proceeds by
 starting with a set with one element and then creating a new 2x2 matrix by adding a second row 
-and second column that is tested for (*).  If the new matrix satisfies (*) push 
+and second column that is tested for (\*).  If the new matrix satisfies (\*) push 
 the matrix (or rather a pointer to the matrix) on to the stack.  Each time a matrix is pushed onto 
 the stack, increment a counter and continue until all possible 2x2 matrices have been tested and 
-added to the stack if satisfying (*).  Continue by poping a 2x2 matrix off the stack
-and create new 3x3 matrix by adding a third row and third column and testing for (*).
-Continue until all 3x3 matrices have been created and tested for (*).  Repeat for 4x4
+added to the stack if satisfying (\*).  Continue by poping a 2x2 matrix off the stack
+and create new 3x3 matrix by adding a third row and third column and testing for (\*).
+Continue until all 3x3 matrices have been created and tested for (\*).  Repeat for 4x4
 matrices, then 5x5, then 6x6m then 7x7 then 8x8.  Finish by printing the counters for each matrix
 dimension.
 
