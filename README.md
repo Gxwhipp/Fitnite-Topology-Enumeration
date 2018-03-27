@@ -20,10 +20,11 @@ and for every index k, a(j,i)=1=a(i,k)=1  ==> a(j,k)=1.
 
 So to count the number of topologies on a finite set N, one need only to generate all
 possible NxN matrices of zeros and ones with ones down the diagonal, and check for
-property (*).  The FORTRAN program I implemented to do this ran on the University IBM 360/50 and 
+property (*).  Since there are 2^(n^2-n) different such NxN matrices we have that as an
+upper bound for the number of topologies that may be defined on a set with n members.
+he FORTRAN program I implemented to do this ran on the University IBM 360/50 and 
 computed f(5)=6942. To do so required generating and testing 1048576 matrices which took about 
-two hours run time.  To compute f(6) would require generating and testing for property (*) 
-1024 times as many matrices.
+two hours run time.  
 
 2.) Improvements to Krishnamurthy's Alogorithm
 
@@ -33,19 +34,23 @@ There are three ideas, that when combined, served to make my new program much mo
     and column N from an N x N matrix satisfying property * also satisfies property *.
     This means that if you have an N x N matrice satisfying property star, you can
     generate new N+1 x N+1 matrices satisfying property *  just by adding a new Nth row
-    and an new Nth column and testing for poperty *.
-
-2.2 The unique rows obtained by the pairwise inclusive OR of all possible rows of an
-    N x N matrix satisfying property (*) will constitute the set of valid N+1 (last) 
-    rows in the N+1 x N+1 matrices satisfying property * created from the previous N x N matrix.
-    When used with idea 1 above, provides a way to reduce the number of last rows to be tested.
-   
-2.3 The transpose of an N x N matrice satisfying property * also satisfies property *. 
+    and an new Nth column and testing for poperty *.  We now have that 
+    f(N) <= f(N-1)*2^(2N-2) as an upper bound since there are 2^(2N-2) ways to add a new
+    row and new column to an N-1 X N-1 matrix.
+    
+2.2 The transpose of an N x N matrice satisfying property * also satisfies property *. 
     This of course reduces by half the number of matrices to be tested for property *,
     but also makes it more efficient to compute the transpose of an N+1 x N+1 matrice
-    when the transpose of the N x N submatrix is already known.
-    
-4.) Representation of N x N matricres satisfying property (*)
+    when the transpose of the N x N submatrix is already known.  This also give a new
+    upper bound f(N) <= f(N-1)*2^N
+ 
+2.3 The unique rows obtained by the inclusive OR of all possible combinations of rows in an
+    N x N matrix satisfying property (*) will constitute the set of valid N+1 (last) 
+    rows in the N+1 x N+1 matrices satisfying property * created from the previous N x N matrix.
+    When used with idea 2.1 and 2.2 above, provides a way to reduce the number of last rows 
+    to be tested.
+  
+3.) Representation of N x N matricres satisfying property (*)
 
 A natural way to represent the N x N matrices is as a list of integers where the first
 integer holds row 0 and the last holds row N-1.  The columns of the matrices are the bits
@@ -58,17 +63,17 @@ N x N matrice and then concatenating the rows into a single N*(N-1) bit number.
 For example, a single topology from a set with 7 members is represented by a 42 bit number.
 All 9535241 topologies on a set with seven members are stored in a file of 123105544 bytes.
 
-5.)  Hardware and Software Envinronment
+4.)  Hardware and Software Envinronment
 
 The source code is written in C and was developed on an Intel Core i5 6600K with 4 cores
 running Ubuntu Linux 16.04.  
 
-6.) Program Execution Modes
+5.) Program Execution Modes
 
 There are two modes of program execution and a variation of the second mode provides a way to
 implement distributed processing on an arbitrarily large network.
 
-6.1 Basic Execution Mode
+5.1 Basic Execution Mode
 
     fte 8
 
@@ -104,7 +109,7 @@ To compute f(10) in Basic Execution Mode:
     f(10):   8977053873043   141.91
     Elapsed Time = 125005 sec (34:43:25)
 
-6.2 Partitioned Mode
+5.2 Partitioned Mode
 
 In paritioned mode, the results from a previous basic execution mode compuation are saved and used
 in a manner that allows all of the cores available to be used concurrently.
@@ -133,7 +138,7 @@ spread over a much larger computation effort.
     f(10):   8977053873043   141.907
     Elapsed Time = 32531 sec (9:02:11)
 
-6.3  Distributed Patitioned Mode
+5.3  Distributed Patitioned Mode
 
 In Distributed Partitioned Mode, the results from a previous computation are also saved and used
 as in the Paritioned Mode, except that the nbasic numbers are split into a number of subfiles
@@ -152,7 +157,8 @@ are recombined to give the the final total.
     
 In this case, the head computer responsible for distributing the work load is the Intel Core I5
 mentioned above, and the remaining six are various 6-8 year old boxes that I could find plus one
-Raspberry Pi.
+Raspberry Pi.  With this setup it required about 3 hours to compute f(10) as opposed to 34 hours
+for basic mode and 9 hours for distributed partitioned mode.
 
 The seven nodes in my local area network are about as many as my wife will allow in the basement.
 Seven is also about as many as I care to try to keep configured and up to date etc.
@@ -161,10 +167,11 @@ It would be better to have nodes that are similar in capability but with more co
 core Thread Rippers are enticing if I can find the time and money.  I did try to program my algorithm
 to use the Nvidia 1070 graphics card that the VR games required, but without much success.  I did get
 it to run but without significant run time improvement.  No doubt because I didn't know what I was doing.
-    
+I would enjoy hearing if anyone decides to try programming this algorithm on a GPU or in other
+distributed environments.
 
-
-
+Note that results up to f(17) have been published in .....  That is impressive but I don't know what
+algorithm was used or what computing resources were available.   
 
 
 
