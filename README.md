@@ -31,7 +31,7 @@ two hours run time.
 There are three ideas that, when combined, served to make my new program much more efficient.
 
 2.1 Make use of N-1 x N-1 submatrices.  The N-1 x N-1 matrix obtained by deleting row N
-    and column N from an N x N matrix satisfying (*) also satisfies (*).
+    and column N from an N x N matrix satisfying (\*) also satisfies (\*).
     This means that if you have an N x N matrice satisfying (*), you can
     generate new N+1 x N+1 matrices satisfying (*) just by adding a new Nth row
     and a new Nth column and testing for (*).  We now have that 
