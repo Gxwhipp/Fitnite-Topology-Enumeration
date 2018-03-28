@@ -22,7 +22,7 @@ So to count the number of topologies on a finite set N, one need only to generat
 possible NxN matrices of zeros and ones with ones down the diagonal, and check for
 (\*).  Since there are 2^(n^2-n) different such NxN matrices we have that as an
 upper bound for the number of topologies that may be defined on a set with n members.
-the FORTRAN program I implemented to do this ran on the University IBM 360/50 and 
+The FORTRAN program I implemented to do this ran on the University IBM 360/50 and 
 computed f(5)=6942. To do so required generating and testing 1048576 matrices which took about 
 two hours run time.  
 
@@ -32,9 +32,9 @@ There are three ideas that, when combined, served to make my new program much mo
 
 2.1 Make use of N-1 x N-1 submatrices.  The N-1 x N-1 matrix obtained by deleting row N
     and column N from an N x N matrix satisfying (\*) also satisfies (\*).
-    This means that if you have an N x N matrice satisfying (\*), you can
-    generate new N+1 x N+1 matrices satisfying (\*) just by adding a new Nth row
-    and a new Nth column and testing for (\*).  We now have that 
+    This means that if you have an N-1 x N-1 matrix satisfying (\*), you can
+    generate new N x N matrices satisfying (\*) just by adding a new Nth row
+    and a new Nth column to the N-1 x N-1 matrix and testing for (\*).  We now have that 
     f(N) <= f(N-1)*2^(2N-2) as an upper bound since there are 2^(2N-2) ways to add a new
     row and new column to an N-1 X N-1 matrix with a diagonal of 1's.
     
@@ -48,7 +48,7 @@ There are three ideas that, when combined, served to make my new program much mo
     N x N matrix satisfying (\*) will constitute the set of valid N+1 (last) 
     rows in the N+1 x N+1 matrices satisfying (\*) created from the previous N x N matrix.
     When used with idea 2.1 and 2.2 above, provides a way to reduce the number of last rows 
-    to be tested.
+    that need to be tested.
   
 3.) Representation of N x N matrices satisfying (\*)
 
@@ -66,7 +66,7 @@ All 9535241 topologies on a set with seven members are stored in a file of 12310
 4.)  Hardware and Software Envinronment
 
 The source code is written in C and was developed on an Intel Core i5 6600K with 4 cores
-running Ubuntu Linux 16.04.  
+running Ubuntu Linux 16.04.
 
 5.) Program Execution Modes
 
@@ -159,8 +159,10 @@ are recombined using a Perl script to give the the final total.
     
 In this case, the head computer responsible for distributing the work load is the Intel Core I5
 mentioned above, and the remaining six are various 6-8 year old boxes that I could find plus one
-Raspberry Pi.  With this setup it required about 3 hours to compute f(10) as opposed to 34 hours
-for Basic Mode and 9 hours for Partitioned Mode.
+Raspberry Pi 3.  With this setup it required about 3 hours to compute f(10) as opposed to 34 hours
+for Basic Mode and 9 hours for Partitioned Mode.  The Raspberry Pi 3 was kind of a nuisance to keep
+cool and, compared to the others, didn't contribute much to the result.  All of the nodes ran Linux
+16.04 except the Raspberry Pi ran Rasperian.
 
 The seven nodes in my local area network are about as many as my wife will allow in the basement.
 Seven is also about as many as I care to try to keep configured and up to date etc.
