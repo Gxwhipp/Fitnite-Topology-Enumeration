@@ -28,7 +28,7 @@ two hours run time.
 
 2.) Improvements to Krishnamurthy's Alogorithm
 
-There are three ideas that, when combined, served to make my new program much more efficient.
+There are three ideas that, when combined, served to make the computation much more efficient.
 
 2.1 Make use of N-1 x N-1 submatrices.  The N-1 x N-1 matrix obtained by deleting row N
     and column N from an N x N matrix satisfying (\*) also satisfies (\*).
@@ -63,17 +63,17 @@ N x N matrix and then concatenating the rows into a single N*(N-1) bit number.
 For example, a single topology from a set with 7 members is represented by a 42 bit number.
 All 9535241 topologies on a set with seven members are stored in a file of 123105544 bytes.
 
-4.)  Hardware and Software Envinronment
-
-The source code is written in C and was developed on an Intel Core i5 6600K with 4 cores
-running Ubuntu Linux 16.04.
-
-5.) Program Execution Modes
+4.) Program Execution Modes
 
 There are two modes of program execution and a variation of the second mode provides a way to
 implement distributed processing on an arbitrarily large network.
 
-5.1 Basic Execution Mode
+All of the examples below were by output by the C language program fte.c.  For the execution 
+modes described in sections 4.1 and 4.2 the fte program runs on an OEM box built around an 
+Intel Core i5 6600K with 4 cores and running Unbuntu Linux.  The execution mode described in
+section 4.3 also runs the fte program but on the 7 nodes in my local area network.
+
+4.1 Basic Execution Mode
 
     fte 8
 
@@ -98,10 +98,7 @@ dimension.
         Elapsed Time = 5 sec (0:00:05)
         
 The third column in the table above is the ratio f(n)/f(n-1).
-        
-These results and all following results were obtained from a C language program fte.c running on an Intel 
-Core i5 6600K with 4 cores running Ubuntu Linux.
-
+       
 The Basic Execution Mode only utilitizes a single thread and one core regardless of how many cores
 are available.
 
@@ -111,7 +108,7 @@ To compute f(10) in Basic Execution Mode:
     f(10):   8977053873043   141.91
     Elapsed Time = 125005 sec (34:43:25)
 
-5.2 Partitioned Mode
+4.2 Partitioned Mode
 
 In Paritioned Mode, the results from a previous basic execution mode compuation are saved and used
 in a manner that allows all of the cores available to be used concurrently.
@@ -140,7 +137,7 @@ spread over a much larger computation effort.
     f(10):   8977053873043   141.907
     Elapsed Time = 32531 sec (9:02:11)
 
-5.3  Distributed Patitioned Mode
+4.3  Distributed Patitioned Mode
 
 In Distributed Partitioned Mode, the results from a previous computation are also saved and used
 as in the Paritioned Mode, except that the file containing the nbasic numbers is split into a 
@@ -162,20 +159,21 @@ mentioned above, and the remaining six are various 6-8 year old boxes that I cou
 Raspberry Pi 3.  With this setup it required about 3 hours to compute f(10) as opposed to 34 hours
 for Basic Mode and 9 hours for Partitioned Mode.  The Raspberry Pi 3 was kind of a nuisance to keep
 cool and, compared to the others, didn't contribute much to the result.  All of the nodes ran Linux
-16.04 except the Raspberry Pi ran Rasperian.
+16.04 except the Raspberry Pi ran Rasperian.  The bash script process.bsh keeps all seven nodes on
+the LAN running the fte program conurrently.  
 
 The seven nodes in my local area network are about as many as my wife will allow in the basement.
 Seven is also about as many as I care to try to keep configured and up to date etc.
 
-It would be better to have nodes that are similar in capability and with more cores.  The AMD 16
+It may be better to have nodes that are similar in capability and with more cores.  The AMD 16
 core Thread Rippers are enticing if I can find the time and money.  I did try to program my algorithm
 to use the Nvidia 1070 graphics card that the VR games required, but without much success.  I did get
 it to run but without significant run time improvement.  No doubt because I didn't know what I was doing.
 I would enjoy hearing if anyone decides to try programming this algorithm on a GPU or in other
 distributed environments.
 
-Note that results up to f(17) have been published in .....  That is impressive but I don't know what
-algorithm was used or what computing resources were available.   
+Note that results up to f(17) have been published in The Online Encyclopedia of Integer Sequences, 
+Sequence Id A000798.   
 
 
 
