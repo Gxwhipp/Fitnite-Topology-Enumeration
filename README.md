@@ -121,7 +121,7 @@ utilizing the 6942 5-basic numbers computed earlier.
 Execution proceeds as follows:
 
 Read a 5-basic number from the nbasic5.txt file and convert it to a 5x5 matrix.
-Program execution is then the same as in 5.1 except that instead of starting with a 1x1
+Program execution is then the same as in 4.1 except that instead of starting with a 1x1
 matrix we begin with a 5x5 matrix. Continue until all 6942 5-basic numbers have been
 processed.
 
