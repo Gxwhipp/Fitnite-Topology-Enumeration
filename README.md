@@ -40,8 +40,8 @@ There are three ideas that, when combined, served to make the computation much m
     
 2.2 The transpose of an N x N matrix satisfying (\*) also satisfies (\*). 
     This of course reduces by half the number of matrices to be tested for (\*),
-    but also makes it more efficient to compute the transpose of an N+1 x N+1 matrix
-    when the transpose of the N x N submatrix is already known. 
+    but also makes it more efficient to compute the transpose of an N x N matrix
+    when the transpose of the N-1 x N-1 submatrix is already known. 
  
 2.3 The unique rows obtained by the inclusive OR of all possible combinations of rows in an
     N x N matrix satisfying (\*) will constitute the set of valid N+1 (last) 
