@@ -41,8 +41,7 @@ There are three ideas that, when combined, served to make the computation much m
 2.2 The transpose of an N x N matrix satisfying (\*) also satisfies (\*). 
     This of course reduces by half the number of matrices to be tested for (\*),
     but also makes it more efficient to compute the transpose of an N+1 x N+1 matrix
-    when the transpose of the N x N submatrix is already known.  This also give a new
-    upper bound f(N) <= f(N-1)*2^N.
+    when the transpose of the N x N submatrix is already known. 
  
 2.3 The unique rows obtained by the inclusive OR of all possible combinations of rows in an
     N x N matrix satisfying (\*) will constitute the set of valid N+1 (last) 
@@ -60,8 +59,7 @@ Krishnamurthy also defined an condensed representation of a N x N matrix satisfy
 called an N Basic Number which is obtained by deleteing the diagonal of ones from the rows of the
 N x N matrix and then concatenating the rows into a single N*(N-1) bit number.
 
-For example, a single topology from a set with 7 members is represented by a 42 bit number.
-All 9535241 topologies on a set with seven members are stored in a file of 123105544 bytes.
+For example, a single topology from a set with 8 members is represented by a 56 bit number.
 
 4.) Program Execution Modes
 
@@ -152,7 +150,7 @@ in 2000 seperate files (file names of which are in seed7.txt), each of which con
 local area network where they are processed in Paritiioned Mode as described above.  As each one 
 of the 2000 separate files is processed, the partial results are written back to the computer 
 responsible for distributing the work.  After all 2000 files have been processed the partial results 
-are recombined using a Perl script to give the the final total.
+are recombined using a Perl script to give the the final total.  
     
 In this case, the head computer responsible for distributing the work load is the Intel Core I5
 mentioned above, and the remaining six are various 6-8 year old boxes that I could find plus one
@@ -160,7 +158,7 @@ Raspberry Pi 3.  With this setup it required about 3 hours to compute f(10) as o
 for Basic Mode and 9 hours for Partitioned Mode.  The Raspberry Pi 3 was kind of a nuisance to keep
 cool and, compared to the others, didn't contribute much to the result.  All of the nodes ran Linux
 16.04 except the Raspberry Pi ran Rasperian.  The bash script process.bsh keeps all seven nodes on
-the LAN running the fte program conurrently.  
+the LAN running the fte program concurrently.  
 
 The seven nodes in my local area network are about as many as my wife will allow in the basement.
 Seven is also about as many as I care to try to keep configured and up to date etc.
